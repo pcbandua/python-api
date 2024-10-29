@@ -97,3 +97,15 @@ def photos_update_by_id(id, name, width, height):
     ).fetchone()
     conn.commit()
     return dict(row)
+
+def photos_destroy_by_id(id):
+    conn = connect_to_db()
+    row = conn.execute(
+        """
+        DELETE from photos
+        WHERE id = ?
+        """,
+        (id,),
+    )
+    conn.commit()
+    return {"message": "Photo destroyed successfully"}
